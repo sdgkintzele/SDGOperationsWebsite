@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== Base (with dark mode) ========== */
+@layer base {
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply min-h-screen bg-sdg-paper text-sdg-charcoal font-sans antialiased;
+  }
+
+  /* Dark mode base colors */
+  .dark body {
+    @apply bg-[#0f1215] text-gray-100;
+  }
+
+  /* Headings = League Spartan */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-sdg-sand/40 text-sdg-charcoal;
+  }
+
+  /* -------- Better default forms (works even if forms plugin is in class strategy) -------- */
+  /* Labels */
+  label,
+  .form-label {
+    @apply text-sm font-medium text-sdg-charcoal dark:text-gray-200;
+  }
+
+  /* Text inputs & textareas */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="time"],
+  input[type="search"],
+  textarea,
+  .form-input,
+  .form-textarea {
+    @apply w-full rounded-xl border border-sdg-dark/20 bg-white px-3 py-2 text-sm
+           placeholder:text-sdg-slate/70 shadow-sm
+           focus:border-sdg-dark/30 focus:ring-2 focus:ring-sdg-dark/25 outline-none;
+    @apply dark:bg-slate-900/50 dark:border-white/10 dark:placeholder:text-gray-400 dark:focus:ring-white/20;
+  }
+
+  textarea {
+    @apply min-h-[8rem];
+  }
+
+  /* Selects */
+  select,
+  .form-select {
+    @apply w-full rounded-xl border border-sdg-dark/20 bg-white px-3 py-2 text-sm shadow-sm
+           focus:border-sdg-dark/30 focus:ring-2 focus:ring-sdg-dark/25 outline-none;
+    @apply dark:bg-slate-900/50 dark:border-white/10 dark:focus:ring-white/20;
+  }
+
+  /* Checkboxes & radios */
+  input[type="checkbox"],
+  input[type="radio"] {
+    @apply h-4 w-4 rounded border-sdg-dark/30 text-sdg-charcoal
+           focus:ring-2 focus:ring-sdg-dark/25;
+    @apply dark:bg-slate-900/60 dark:border-white/20 dark:text-white;
+  }
+
+  /* File input (kept simple; use a custom wrapper in JSX for fancier UI) */
+  input[type="file"] {
+    @apply block w-full text-sm text-sdg-charcoal file:mr-3 file:rounded-lg
+           file:border-0 file:bg-sdg-charcoal file:px-3 file:py-2 file:text-white
+           hover:file:bg-sdg-dark;
+    @apply dark:text-gray-100 dark:file:bg-white/90 dark:file:text-slate-900 dark:hover:file:bg-white;
+  }
+
+  /* Links */
+  a {
+    @apply underline decoration-sdg-sand/50 underline-offset-2 hover:decoration-sdg-sand;
+  }
+}
+
+/* ========== Components ========== */
+@layer components {
+  /* Reusable card */
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-sdg-dark/10;
+    @apply dark:bg-slate-900/60 dark:border-white/10;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+           transition focus:outline-none
+           focus-visible:ring-2 focus-visible:ring-sdg-dark/30 focus-visible:ring-offset-2
+           ring-offset-sdg-paper
+           disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:ring-offset-transparent;
+  }
+
+  .btn-primary {
+    @apply bg-sdg-charcoal text-white hover:bg-sdg-dark;
+    @apply dark:bg-white/90 dark:text-slate-900 dark:hover:bg-white;
+  }
+
+  .btn-ghost {
+    @apply bg-white text-sdg-charcoal border border-sdg-dark/10 hover:bg-sdg-paper;
+    @apply dark:bg-transparent dark:text-gray-200 dark:border-white/10 dark:hover:bg-white/5;
+  }
+
+  /* Gradient accent utility (for accent bars/CTAs) */
+  .btn-gold {
+    @apply text-white bg-sdg-gold;
+  }
+
+  /* Sidebar/toolbar links */
+  .sidebar-link {
+    @apply block rounded-xl px-3 py-2 text-sm font-medium
+           text-sdg-charcoal/80 hover:text-sdg-charcoal hover:bg-white/60;
+    @apply dark:text-gray-300 dark:hover:bg-white/5;
+  }
+  .sidebar-link-active {
+    @apply bg-white text-sdg-charcoal shadow-soft border border-sdg-dark/10;
+    @apply dark:bg-white/10 dark:text-white dark:border-white/10;
+  }
+
+  /* SDG frame + gold accent bar */
+  .frame {
+    @apply rounded-2xl border border-sdg-dark/20 dark:border-white/15
+           bg-white dark:bg-[#0f1316] shadow-soft;
+  }
+  .frame-accent {
+    @apply h-1.5 w-full bg-sdg-gold rounded-t-2xl;
+  }
+}
