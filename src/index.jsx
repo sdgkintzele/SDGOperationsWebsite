@@ -1,29 +1,33 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom"; // swap to HashRouter if your host lacks SPA rewrites
+import { BrowserRouter } from "react-router-dom"; // Use HashRouter if your host lacks SPA rewrites
 import App from "./App";
 import { ToasterProvider } from "./lib/toast";
 
+// Tailwind entry (must exist and include @tailwind base/components/utilities)
+import "./styles.css";
+
 /**
- * Apply dark mode class before render to avoid FOUC.
- * Uses localStorage('theme') = 'dark' | 'light', with system preference fallback.
+ * (Optional) Re-apply dark mode in JS too.
+ * Index.html already sets it ASAP, but this keeps parity if theme changes at runtime.
  */
-(function hydrateTheme() {
+(function applyThemeClass() {
   try {
     const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     document.documentElement.classList.toggle(
       "dark",
       saved === "dark" || (!saved && prefersDark)
     );
   } catch {
-    // no-op
+    /* no-op */
   }
 })();
 
-createRoot(document.getElementById("root")).render(
+const rootEl = document.getElementById("root");
+if (!rootEl) throw new Error("Root element #root not found");
+
+createRoot(rootEl).render(
   <React.StrictMode>
     <ToasterProvider>
       <BrowserRouter>
@@ -33,9 +37,10 @@ createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-/* If deploying to a static host without SPA rewrites, use HashRouter:
+/* If deploying to a static host without SPA rewrites, switch to HashRouter:
+
 import { HashRouter } from "react-router-dom";
-createRoot(document.getElementById("root")).render(
+createRoot(rootEl).render(
   <React.StrictMode>
     <ToasterProvider>
       <HashRouter>
@@ -44,4 +49,5 @@ createRoot(document.getElementById("root")).render(
     </ToasterProvider>
   </React.StrictMode>
 );
+
 */
