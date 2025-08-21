@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom"; // Use HashRouter if your host lacks SPA rewrites
 import App from "./App";
 import { ToasterProvider } from "./lib/toast";
+import "./styles.css";
+
 
 // Tailwind entry (must exist and include @tailwind base/components/utilities)
 import "./styles.css";
